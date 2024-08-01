@@ -1,7 +1,0 @@
-CREATE TABLE similar_products (
-  product_id VARCHAR(36) NOT NULL,
-  similar_product_id VARCHAR(36) NOT NULL,
-  PRIMARY KEY (product_id, similar_product_id),
-  FOREIGN KEY (product_id) REFERENCES products (product_id),
-  FOREIGN KEY (similar_product_id) REFERENCES products (product_id)
-);

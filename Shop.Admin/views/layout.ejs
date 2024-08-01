@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>SHOP PROJECT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" />
+    <link rel="stylesheet" href="/<%= process.env.ADMIN_PATH %>/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo"></div>
+
+        <div>
+            <% if (!location.includes("/login")) { %> 
+                <div>
+                    <a href="<%= `/${process.env.ADMIN_PATH}/new_product` %>">Add product</a>
+                </div>
+                <div>
+                    <a href="<%= `/${process.env.ADMIN_PATH}/` %>">Home page</a>
+                </div>
+            <% } %>
+    
+            <div>
+                <a href="<%= `/${process.env.ADMIN_PATH}/auth/logout` %>">LOGOUT</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <%- body %>
+    </div>
+</html>

@@ -1,6 +1,23 @@
-import { CommentCreatePayload, ICommentEntity, IProductSearchFilter, IProductImageEntity, IidPosted, IImagesProcessing } from "./types";
-import { IComment, IProduct, IImagesEntity, SimilarProduct,  } from "../../Shared/types";
-import { mapCommentEntity, mapImageEntity, mapImageProcessing, mapConvertingProduct } from "./services/mapping";
+import {
+  CommentCreatePayload,
+  ICommentEntity,
+  IProductSearchFilter,
+  IProductImageEntity,
+  IidPosted,
+  IImagesProcessing,
+} from "./types";
+import {
+  IComment,
+  IProduct,
+  IImagesEntity,
+  SimilarProduct,
+} from "../../Shared/types";
+import {
+  mapCommentEntity,
+  mapImageEntity,
+  mapImageProcessing,
+  mapConvertingProduct,
+} from "./services/mapping";
 
 type CommentValidator = (comment: CommentCreatePayload) => string | null;
 
@@ -13,7 +30,7 @@ export const validateComment: CommentValidator = (comment) => {
     "name",
     "email",
     "body",
-    "productId"
+    "productId",
   ]);
 
   let wrongFieldName;
@@ -36,8 +53,13 @@ const compareValues = (target: string, compare: string): boolean => {
   return target.toLowerCase() === compare.toLowerCase();
 };
 
-export const checkCommentUniq = (payload: CommentCreatePayload, comments: IComment[]): boolean => {
-  const byEmail = comments.find(({ email }) => compareValues(payload.email, email));
+export const checkCommentUniq = (
+  payload: CommentCreatePayload,
+  comments: IComment[]
+): boolean => {
+  const byEmail = comments.find(({ email }) =>
+    compareValues(payload.email, email)
+  );
 
   if (!byEmail) {
     return true;
@@ -51,63 +73,70 @@ export const checkCommentUniq = (payload: CommentCreatePayload, comments: IComme
   );
 };
 
-export const enhanceProductsComments = (products: IProduct[], commentRows: ICommentEntity[]): IProduct[] => {
-  const commentsByProductId = new Map < string, IComment[]> ();
+export const enhanceProductsComments = (
+  products: IProduct[],
+  commentRows: ICommentEntity[]
+): IProduct[] => {
+  const commentsByProductId = new Map<string, IComment[]>();
 
   for (let commentEntity of commentRows) {
-      const comment = mapCommentEntity(commentEntity);
-      if (!commentsByProductId.has(comment.productId)) {
-          commentsByProductId.set(comment.productId, []);
-      }
+    const comment = mapCommentEntity(commentEntity);
+    if (!commentsByProductId.has(comment.productId)) {
+      commentsByProductId.set(comment.productId, []);
+    }
 
-      const list = commentsByProductId.get(comment.productId);
-      commentsByProductId.set(comment.productId, [...list, comment]);
+    const list = commentsByProductId.get(comment.productId);
+    commentsByProductId.set(comment.productId, [...list, comment]);
   }
 
   for (let product of products) {
-      if (commentsByProductId.has(product.id)) {
-          product.comments = commentsByProductId.get(product.id);
-      }
+    if (commentsByProductId.has(product.id)) {
+      product.comments = commentsByProductId.get(product.id);
+    }
   }
 
   return products;
 };
 
-export const getProductsFilterQuery = (filter: IProductSearchFilter): [string, string[]] => {
+export const getProductsFilterQuery = (
+  filter: IProductSearchFilter
+): [string, string[]] => {
   const { title, description, priceFrom, priceTo } = filter;
 
   let query = "SELECT * FROM products WHERE ";
-  const values = []
+  const values = [];
 
   if (title) {
-      query += "title LIKE ? ";
-      values.push(`%${title}%`);
+    query += "title LIKE ? ";
+    values.push(`%${title}%`);
   }
 
   if (description) {
-      if (values.length) {
-          query += " OR ";
-      }
+    if (values.length) {
+      query += " OR ";
+    }
 
-      query += "description LIKE ? ";
-      values.push(`%${description}%`);
+    query += "description LIKE ? ";
+    values.push(`%${description}%`);
   }
 
   if (priceFrom || priceTo) {
-      if (values.length) {
-          query += " OR ";
-      }
+    if (values.length) {
+      query += " OR ";
+    }
 
-      query += `(price > ? AND price < ?)`;
-      values.push(priceFrom || 0);
-      values.push(priceTo || 999999);
+    query += `(price > ? AND price < ?)`;
+    values.push(priceFrom || 0);
+    values.push(priceTo || 999999);
   }
 
   return [query, values];
 };
 
-export const enhanceProductsImages = (interimResult: IProduct[], imagesRows: IProductImageEntity[]): IProduct[] => {
-
+export const enhanceProductsImages = (
+  interimResult: IProduct[],
+  imagesRows: IProductImageEntity[]
+): IProduct[] => {
   const imagesByProductId = new Map<string, IImagesEntity[]>();
   const thumbnailsByProductId = new Map<string, IImagesEntity>();
 
@@ -140,7 +169,10 @@ export const enhanceProductsImages = (interimResult: IProduct[], imagesRows: IPr
   return interimResult;
 };
 
-export const postProcessingImages = (images: IImagesProcessing[], product_id: IidPosted) => {
+export const postProcessingImages = (
+  images: IImagesProcessing[],
+  product_id: IidPosted
+) => {
   const imagesResult = new Map();
 
   for (let image of images) {
@@ -152,34 +184,46 @@ export const postProcessingImages = (images: IImagesProcessing[], product_id: Ii
 
     const list = imagesResult.get(img.product_id);
     imagesResult.set(img.product_id, [...list, img]);
-
   }
 
   const result = imagesResult.get(product_id);
   return result;
 };
 
-export const possibleSimilarProducts = (product: IProduct, similar_products: SimilarProduct[], products: IProduct[]) => {
+export const possibleSimilarProducts = (
+  product: IProduct,
+  similar_products: SimilarProduct[],
+  products: IProduct[]
+) => {
   if (similar_products?.length) {
     const currentProductConverting = {
       title: product.title,
-      id: product.id
+      id: product.id,
     };
     const similarProductsConverting = mapConvertingProduct(similar_products);
     const allProductsConverting = mapConvertingProduct(products);
-  
-    const allExceptCurrent = allProductsConverting.filter(item => item.id !== currentProductConverting.id);
-    const allExceptSimilar = allExceptCurrent.filter(item => !similarProductsConverting.some(similarProduct => similarProduct.id === item.id));
+
+    const allExceptCurrent = allProductsConverting.filter(
+      (item) => item.id !== currentProductConverting.id
+    );
+    const allExceptSimilar = allExceptCurrent.filter(
+      (item) =>
+        !similarProductsConverting.some(
+          (similarProduct) => similarProduct.id === item.id
+        )
+    );
 
     return allExceptSimilar;
   } else {
     const currentProductConverting = {
       title: product.title,
-      id: product.id
+      id: product.id,
     };
     const allProductsConverting = mapConvertingProduct(products);
 
-    const allExceptCurrent = allProductsConverting.filter(item => item.id !== currentProductConverting.id);
+    const allExceptCurrent = allProductsConverting.filter(
+      (item) => item.id !== currentProductConverting.id
+    );
 
     return allExceptCurrent;
   }

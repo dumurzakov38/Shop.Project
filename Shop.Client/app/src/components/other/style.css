@@ -1,23 +1,23 @@
 .container__loader {
-    display: flex;
-    height: 40%;
-    width: 60%;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    flex-direction: column;
+  display: flex;
+  height: 40%;
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
 }
 
 @keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-  
+
 .loaderAnimation {
-    animation: rotate 2s linear infinite;
+  animation: rotate 2s linear infinite;
 }

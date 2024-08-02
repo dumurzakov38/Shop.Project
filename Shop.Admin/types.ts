@@ -7,17 +7,17 @@ export interface IProductEditData {
   commentsToRemove: string | string[];
   imagesToRemove: string | string[];
   similarProductToRemove: string | string[];
-  add_similar_product: string | string[]
-};
+  add_similar_product: string | string[];
+}
 
-declare module 'express-session' {
+declare module "express-session" {
   export interface SessionData {
-    username?: string
+    username?: string;
   }
-};
+}
 
-export interface IProductCreate { 
+export interface IProductCreate {
   title: string;
   description: string;
   price: string;
-};
+}

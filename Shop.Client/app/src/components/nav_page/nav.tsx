@@ -1,7 +1,5 @@
 import React from "react";
 
-export function Nav () {
-    return (
-        <header className="content"></header>
-    )
-};
+export function Nav() {
+  return <header className="content"></header>;
+}

@@ -1,11 +1,26 @@
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
 }
 
-section, div, h1, h2, h3, h4, h5, h6, p, img, button, ul, input, select, a {
+section,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+img,
+button,
+ul,
+input,
+select,
+a {
   margin: 0;
   padding: 0;
   text-decoration: none;
@@ -17,7 +32,8 @@ button {
   cursor: pointer;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
 }
 
@@ -36,7 +52,8 @@ header {
   max-width: 1216px;
 }
 
-.App, .root {
+.App,
+.root {
   height: 100%;
   background-color: white;
 }
@@ -102,7 +119,6 @@ header {
   border-bottom: solid 2px black;
 }
 
-
 .products {
   display: flex;
 }
@@ -120,7 +136,8 @@ header {
   margin: 30px 0px;
 }
 
-.products__filter__title label, .products__filter__title input {
+.products__filter__title label,
+.products__filter__title input {
   display: block;
 }
 
@@ -128,12 +145,14 @@ header {
   display: block;
 }
 
-.products__filter__title input, .products__filter__price div input {
+.products__filter__title input,
+.products__filter__price div input {
   padding: 15px 5px 3px;
-  border-bottom: solid 1px
+  border-bottom: solid 1px;
 }
 
-.products__filter--submit, .products__filter--submit--reset {
+.products__filter--submit,
+.products__filter--submit--reset {
   width: 80%;
   margin: 40px 0px 0px;
   padding: 15px;
@@ -177,10 +196,10 @@ header {
   justify-content: space-between;
 }
 
-.products__list__containerProducts__product__containerPrice p, .products__list__containerProducts__product__containerComments p {
+.products__list__containerProducts__product__containerPrice p,
+.products__list__containerProducts__product__containerComments p {
   display: inline-block;
 }
-
 
 .product {
   padding-bottom: 50px;
@@ -210,7 +229,8 @@ header {
   margin-bottom: 15px;
 }
 
-.product__containerImages__mainImage img, .product__containerImages__image img {
+.product__containerImages__mainImage img,
+.product__containerImages__image img {
   width: 100%;
   height: 100%;
 }
@@ -246,7 +266,9 @@ header {
   display: inline-block;
 }
 
-.product__containerSimilarProducts, .product__containerComments, .product__containerAddComments {
+.product__containerSimilarProducts,
+.product__containerComments,
+.product__containerAddComments {
   margin-top: 90px;
 }
 
@@ -289,7 +311,9 @@ header {
   margin-bottom: 25px;
 }
 
-.product__containerAddComments__containerForm--title--label, .product__containerAddComments__containerForm--email--label, .product__containerAddComments__containerForm--body--label {
+.product__containerAddComments__containerForm--title--label,
+.product__containerAddComments__containerForm--email--label,
+.product__containerAddComments__containerForm--body--label {
   display: block;
   margin: 0px 0px 0px 15px;
 }
@@ -313,14 +337,14 @@ header {
 }
 
 .product__containerAddComments__containerForm--body--textarea {
-  min-height: 68px; 
-  border: none; 
-  display: block; 
-  margin: 7.5px 0px 0px; 
-  padding: 7.5px; 
-  width: 100%; 
-  font-size: 16px; 
-  box-sizing: border-box; 
+  min-height: 68px;
+  border: none;
+  display: block;
+  margin: 7.5px 0px 0px;
+  padding: 7.5px;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
   height: 90px;
 }
 

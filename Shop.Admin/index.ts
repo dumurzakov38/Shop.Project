@@ -6,33 +6,35 @@ import { authRouter, validateSession } from "./controllers/auth.controller";
 import session from "express-session";
 
 export default function (): Express {
-    const app = express();
+  const app = express();
 
-    app.use(session({
-        secret: process.env.COOKIE_SECRET_SESSION,
-        saveUninitialized: false,
-        resave: false
-    }));
+  app.use(
+    session({
+      secret: process.env.COOKIE_SECRET_SESSION,
+      saveUninitialized: false,
+      resave: false,
+    })
+  );
 
-    app.use(express.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
 
-    app.set("view engine", "ejs");
-    app.set("views", "Shop.Admin/views");
+  app.set("view engine", "ejs");
+  app.set("views", "Shop.Admin/views");
 
-    app.use(layouts);
+  app.use(layouts);
 
-    app.use((req: Request, res: Response, next: NextFunction) => {
-        res.locals.location = req.headers.host + req.originalUrl;
-        next();
-    });
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.location = req.headers.host + req.originalUrl;
+    next();
+  });
 
-    app.use(express.static(__dirname + "/public"));
+  app.use(express.static(__dirname + "/public"));
 
-    app.use(validateSession);
-    
-    app.use("/auth", authRouter);
-    app.use("/", productsRouter);
-    
-    return app;
+  app.use(validateSession);
+
+  app.use("/auth", authRouter);
+  app.use("/", productsRouter);
+
+  return app;
 }

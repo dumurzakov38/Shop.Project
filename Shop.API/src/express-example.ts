@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 
 const app = express();
 
-app.get('/api/example', (req: Request, res: Response) => {
-    const html = `
+app.get("/api/example", (req: Request, res: Response) => {
+  const html = `
       <html>
         <head>
           <title>Example page</title>
@@ -14,9 +14,9 @@ app.get('/api/example', (req: Request, res: Response) => {
         </body>
       </html>
     `;
-    res.send(html);
+  res.send(html);
 });
 
 app.listen(3001, () => {
-    console.log('Server listening on port 3000');
+  console.log("Server listening on port 3000");
 });

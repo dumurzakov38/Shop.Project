@@ -4,12 +4,11 @@ import { IProduct } from "../../../../../Shared/types";
 
 import product_placeholder from "../../img/product_placeholder.png";
 
-export const ItemProductsList: FC<{ index: number; product: IProduct }> = ({
-  index,
+export const ItemProductsList: FC<{ product: IProduct }> = ({
   product,
 }) => {
   return (
-    <div key={index} className="products__list__containerProducts__product">
+    <div className="products__list__containerProducts__product">
       <Link to={`/${product.id}`}>
         <div className="products__list__containerProducts__product__containerTitle">
           {!product.title ? (

@@ -85,7 +85,7 @@ export function ProductsList() {
               </div>
               <div className="products__list__containerProducts">
                 {data.map((item, index) => {
-                  return <ItemProductsList index={index} product={item} />;
+                  return <ItemProductsList product={item} />;
                 })}
               </div>
             </div>

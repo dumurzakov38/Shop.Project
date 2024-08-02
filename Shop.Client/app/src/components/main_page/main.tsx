@@ -4,7 +4,7 @@ import { IProduct } from "../../../../../Shared/types";
 import axiosInstance from "axios";
 import { Loader } from "../other/otherElemntsUI";
 
-export const Main: FC<{}> = () => {
+export const Main: FC = () => {
   const [data, setData] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
 

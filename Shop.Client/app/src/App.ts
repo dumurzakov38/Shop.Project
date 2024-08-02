@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route
             path="*"
-            element={<Main total_products={100} total_cost={10000} />}
+            element={<Main />}
           />
           <Route path="/products-list" element={<ProductsList />} />
           <Route path="/:id" element={<Product />} />

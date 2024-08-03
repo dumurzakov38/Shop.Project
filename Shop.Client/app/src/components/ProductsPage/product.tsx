@@ -1,11 +1,11 @@
-import { Loader } from "../other/otherElemntsUI";
+import { Loader } from "../other/Loader";
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
 import { IProduct } from "../../../../../Shared/types";
 import product_placeholder from "../../img/product_placeholder.png";
 import { Link } from "react-router-dom";
-import { product_addComment } from "./components/product_addCommentFunction";
+import { ProductAddComment } from "./components/ProductAddCommentFunction";
 
 export const Product: FC<{}> = () => {
   const { id } = useParams<{ id: string }>();
@@ -45,7 +45,7 @@ export const Product: FC<{}> = () => {
   }, [id]);
 
   useEffect(() => {
-    product_addComment(setBtnSubmitDisabeld, id, setData, setLoading);
+    ProductAddComment(setBtnSubmitDisabeld, id, setData, setLoading);
   }, [loading === false]);
 
   return (

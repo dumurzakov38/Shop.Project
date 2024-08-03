@@ -2,7 +2,7 @@ import React, { useEffect, useState, FC } from "react";
 import { Link } from "react-router-dom";
 import { IProduct } from "../../../../../Shared/types";
 import axiosInstance from "axios";
-import { Loader } from "../other/otherElemntsUI";
+import { Loader } from "../other/Loader";
 
 export const Main: FC = () => {
   const [data, setData] = useState<IProduct[]>([]);

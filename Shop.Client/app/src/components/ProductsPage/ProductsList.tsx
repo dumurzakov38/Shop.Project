@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { IProduct } from "../../../../../Shared/types";
 import axios from "axios";
 
-import { ItemProductsList } from "./item_products_List";
-import { Products_Filter } from "./components/products_filterFunction";
-import { Loader } from "../other/otherElemntsUI";
+import { ItemProductsList } from "./ItemProductsList";
+import { ProductsFilter } from "./components/ProductsFilterFunction";
+import { Loader } from "../other/Loader";
 
 export function ProductsList() {
   const [data, setData] = useState<IProduct[]>([]);
@@ -27,7 +27,7 @@ export function ProductsList() {
     };
 
     fetchData();
-    Products_Filter(setData, setBtnSubmitDisabeld, setLoading);
+    ProductsFilter(setData, setBtnSubmitDisabeld, setLoading);
   }, []);
 
   return (

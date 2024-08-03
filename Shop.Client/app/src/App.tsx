@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { FC } from "react";
 import "./App.css";
 
-import { Nav } from "./components/nav_page/nav";
-import { Main } from "./components/main_page/main";
-import { ProductsList } from "./components/products_page/products_List";
-import { Product } from "./components/products_page/product";
+import { Nav } from "./components/NavPage/Nav";
+import { Main } from "./components/MainPage/Main";
+import { Product } from "./components/ProductsPage/Product";
+import { ProductsList } from "./components/ProductsPage/ProductsList";
 
 const App: FC = () => {
   return (

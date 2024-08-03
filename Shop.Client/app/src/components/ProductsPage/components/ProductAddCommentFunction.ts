@@ -2,7 +2,7 @@ import axios from "axios";
 import { IProduct } from "../../../../../../Shared/types";
 import { ICommentEntity } from "../../../../../../Shop.API/src/types";
 
-export function product_addComment(
+export function ProductAddComment(
   setBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
   id: string | undefined,
   setData: React.Dispatch<React.SetStateAction<IProduct | undefined>>,

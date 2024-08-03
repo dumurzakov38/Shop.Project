@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IProduct } from "../../../../../../Shared/types";
 
-export function Products_Filter(
+export function ProductsFilter(
   setdata: React.Dispatch<React.SetStateAction<IProduct[]>>,
   setBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
   setLoading: React.Dispatch<React.SetStateAction<Boolean>>

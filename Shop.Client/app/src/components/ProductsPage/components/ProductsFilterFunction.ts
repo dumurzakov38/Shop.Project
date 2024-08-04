@@ -3,8 +3,8 @@ import { IProduct } from "../../../../../../Shared/types";
 
 export function ProductsFilter(
   setdata: React.Dispatch<React.SetStateAction<IProduct[]>>,
-  setBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
-  setLoading: React.Dispatch<React.SetStateAction<Boolean>>
+  setIsBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
+  setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>
 ) {
   const form = document.querySelector<HTMLFormElement>(
     ".products__filter__form"
@@ -31,9 +31,9 @@ export function ProductsFilter(
       inputPriceFrom?.value !== "" ||
       inputPriceTo?.value !== ""
     ) {
-      setBtnSubmitDisabeld(false);
+      setIsBtnSubmitDisabeld(false);
     } else {
-      setBtnSubmitDisabeld(true);
+      setIsBtnSubmitDisabeld(true);
     }
   });
 
@@ -48,7 +48,7 @@ export function ProductsFilter(
       priceTo: inputPriceTo?.value,
     };
 
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await axios.get<IProduct[]>(
@@ -60,14 +60,14 @@ export function ProductsFilter(
       console.log(e);
       setdata([]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   });
 
   btnFormReset?.addEventListener("click", async () => {
     form?.reset();
 
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await axios.get<IProduct[]>(
@@ -78,9 +78,9 @@ export function ProductsFilter(
       console.log(e);
       setdata([]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
 
-    setBtnSubmitDisabeld(true);
+    setIsBtnSubmitDisabeld(true);
   });
 }

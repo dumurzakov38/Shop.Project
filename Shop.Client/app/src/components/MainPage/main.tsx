@@ -6,7 +6,7 @@ import { Loader } from "../other/Loader";
 
 export const Main: FC = () => {
   const [data, setData] = useState<IProduct[]>([]);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +18,7 @@ export const Main: FC = () => {
       } catch (e) {
         console.log(e);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -28,7 +28,7 @@ export const Main: FC = () => {
   return (
     <section className="main content">
       <div className="content__container">
-        {!loading ? (
+        {!isLoading ? (
           <>
             <div className="main__h1">
               <h1>Shop.Client</h1>
@@ -53,7 +53,7 @@ export const Main: FC = () => {
             </div>
           </>
         ) : (
-          <Loader loading={loading} />
+          <Loader loading={isLoading} />
         )}
       </div>
     </section>

@@ -8,8 +8,8 @@ import { Loader } from "../other/Loader";
 
 export function ProductsList() {
   const [data, setData] = useState<IProduct[]>([]);
-  const [btnSubmitDisabeld, setBtnSubmitDisabeld] = useState<Boolean>(true);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [isBtnSubmitDisabeld, setIsBtnSubmitDisabeld] = useState<Boolean>(true);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,12 +22,12 @@ export function ProductsList() {
         console.log(e);
         setData([]);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     fetchData();
-    ProductsFilter(setData, setBtnSubmitDisabeld, setLoading);
+    ProductsFilter(setData, setIsBtnSubmitDisabeld, setIsLoading);
   }, []);
 
   return (
@@ -65,20 +65,20 @@ export function ProductsList() {
 
               <button
                 className="products__filter--submit"
-                disabled={btnSubmitDisabeld ? true : false}
+                disabled={isBtnSubmitDisabeld ? true : false}
                 type="submit"
               >
                 Применить
               </button>
               <button
                 className="products__filter--submit--reset"
-                disabled={btnSubmitDisabeld ? true : false}
+                disabled={isBtnSubmitDisabeld ? true : false}
               >
                 Сбросить
               </button>
             </form>
           </div>
-          {!loading ? (
+          {!isLoading ? (
             <div className="products__list">
               <div className="products__list__containerH1">
                 <h1>Список товаров {data.length}</h1>
@@ -90,7 +90,7 @@ export function ProductsList() {
               </div>
             </div>
           ) : (
-            <Loader loading={loading} />
+            <Loader loading={isLoading} />
           )}
         </div>
       </div>

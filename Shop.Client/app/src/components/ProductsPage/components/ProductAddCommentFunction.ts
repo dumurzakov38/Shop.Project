@@ -3,10 +3,10 @@ import { IProduct } from "../../../../../../Shared/types";
 import { ICommentEntity } from "../../../../../../Shop.API/src/types";
 
 export function ProductAddComment(
-  setBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
+  setIsBtnSubmitDisabeld: React.Dispatch<React.SetStateAction<Boolean>>,
   id: string | undefined,
   setData: React.Dispatch<React.SetStateAction<IProduct | undefined>>,
-  setLoading: React.Dispatch<React.SetStateAction<Boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>
 ) {
   const form = document.querySelector<HTMLFormElement>(
     ".product__containerAddComments__containerForm"
@@ -30,9 +30,9 @@ export function ProductAddComment(
       innEmail?.value !== "" &&
       textareaBody?.value !== ""
     ) {
-      setBtnSubmitDisabeld(false);
+      setIsBtnSubmitDisabeld(false);
     } else {
-      setBtnSubmitDisabeld(true);
+      setIsBtnSubmitDisabeld(true);
     }
   });
 
@@ -66,13 +66,13 @@ export function ProductAddComment(
           `http://localhost:3000/api/products/${id}`
         );
         setData(response.data);
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     fetchData();
 
     form?.reset();
-    setBtnSubmitDisabeld(true);
+    setIsBtnSubmitDisabeld(true);
   });
 }

@@ -4,9 +4,7 @@ import { IProduct } from "../../../../../Shared/types";
 
 import product_placeholder from "../../img/product_placeholder.png";
 
-export const ItemProductsList: FC<{ product: IProduct }> = ({
-  product,
-}) => {
+export const ItemProductsList: FC<{ product: IProduct }> = ({ product }) => {
   return (
     <div className="products__list__containerProducts__product">
       <Link to={`/${product.id}`}>

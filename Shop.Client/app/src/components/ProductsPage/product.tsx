@@ -4,16 +4,18 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { IProduct } from "../../../../../Shared/types";
 import product_placeholder from "../../img/product_placeholder.png";
-import { Link } from "react-router-dom";
 import { ProductAddComment } from "./components/ProductAddCommentFunction";
+import { SimilarProduct } from "./SimilarProduct";
+import { CommentsProducts } from "./CommentsProduct";
+import { AddCommentsProduct } from "./AddCommentsProduct";
 
-export const Product: FC<{}> = () => {
+export const Product: FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const [data, setData] = useState<IProduct>();
   const [similarProducts, setSimilarProducts] = useState<IProduct[]>();
-  const [loading, setLoading] = useState<Boolean>(true);
-  const [btnSubmitDisabeld, setBtnSubmitDisabeld] = useState<Boolean>(true);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [isBtnSubmitDisabeld, setIsBtnSubmitDisabeld] = useState<Boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +28,7 @@ export const Product: FC<{}> = () => {
         console.log(e);
         setData(undefined);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
 
       try {
@@ -37,7 +39,7 @@ export const Product: FC<{}> = () => {
       } catch (e) {
         console.log(e);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -45,13 +47,13 @@ export const Product: FC<{}> = () => {
   }, [id]);
 
   useEffect(() => {
-    ProductAddComment(setBtnSubmitDisabeld, id, setData, setLoading);
-  }, [loading === false]);
+    ProductAddComment(setIsBtnSubmitDisabeld, id, setData, setIsLoading);
+  }, [isLoading === false]);
 
   return (
     <section className="main content">
       <div className="content__container">
-        {!loading ? (
+        {!isLoading ? (
           <div className="product">
             <div className="product__container">
               <div>
@@ -96,104 +98,12 @@ export const Product: FC<{}> = () => {
                 </div>
               </div>
             </div>
-            <div className="product__containerSimilarProducts">
-              {!similarProducts ? (
-                <></>
-              ) : (
-                <>
-                  {similarProducts.map((item, index) => {
-                    return (
-                      <div
-                        className="product__containerSimilarProducts--product"
-                        key={index}
-                      >
-                        <Link
-                          to={`/${item.id}`}
-                          className="product__containerSimilarProducts--product--a"
-                        >
-                          <h3>{item.title}</h3>
-                        </Link>
-                        <p className="product__containerSimilarProducts--product--value">
-                          {item.price}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </>
-              )}
-            </div>
-            <div className="product__containerComments">
-              {!data?.comments ? (
-                <></>
-              ) : (
-                <>
-                  {data.comments.map((item, index) => {
-                    return (
-                      <div
-                        className="product__containerComments--comment"
-                        key={index}
-                      >
-                        <h3 className="product__containerComments--comment--title">
-                          {item.name}
-                        </h3>
-                        <p className="product__containerComments--comment--email">
-                          {item.email}
-                        </p>
-                        <p className="product__containerComments--comment--body">
-                          {item.body}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </>
-              )}
-            </div>
-            <div className="product__containerAddComments">
-              <form className="product__containerAddComments__containerForm">
-                <div className="product__containerAddComments__containerForm--title">
-                  <label className="product__containerAddComments__containerForm--title--label">
-                    Заголовок
-                  </label>
-                  <input
-                    className="product__containerAddComments__containerForm--title--input"
-                    placeholder="Введите заголовок"
-                    type="text"
-                  />
-                </div>
-                <div className="product__containerAddComments__containerForm--email">
-                  <label className="product__containerAddComments__containerForm--email--label">
-                    Email
-                  </label>
-                  <input
-                    className="product__containerAddComments__containerForm--email--input"
-                    placeholder="Введите email"
-                    type="text"
-                  />
-                </div>
-                <div className="product__containerAddComments__containerForm--body">
-                  <label className="product__containerAddComments__containerForm--body--label">
-                    Комментарий
-                  </label>
-                  <textarea
-                    className="product__containerAddComments__containerForm--body--textarea"
-                    placeholder="Введите комментарий"
-                  />
-                </div>
-
-                <div className="product__containerAddComments__containerForm--submit">
-                  <button
-                    className="product__containerAddComments__containerForm--submit__btn"
-                    type="submit"
-                    disabled={btnSubmitDisabeld ? true : false}
-                  >
-                    Добавить комментарий
-                  </button>
-                </div>
-              </form>
-            </div>
+            <SimilarProduct similarProducts={similarProducts} />
+            <CommentsProducts data={data} />
+            <AddCommentsProduct isBtnSubmitDisabeld={isBtnSubmitDisabeld} />
           </div>
         ) : (
-          <Loader loading={loading} />
+          <Loader loading={isLoading} />
         )}
       </div>
     </section>
